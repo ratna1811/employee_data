@@ -1,6 +1,7 @@
 package com.example.employeemanagement.service;
 
 import com.example.employeemanagement.model.Employee;
+import com.example.employeemanagement.model.PhoneNumber;
 import com.example.employeemanagement.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,11 @@ public class EmployeeService {
     private EmployeeRepository employeeRepository;
 
     public Employee saveEmployee(Employee employee) {
+    	// Optional: Print employee details for debugging
+        System.out.println("Saving Employee: " + employee);
+        for (PhoneNumber phoneNumber : employee.getPhoneNumbers()) {
+            System.out.println("Phone Number: " + phoneNumber.getPhoneNumber());
+        }
         return employeeRepository.save(employee);
     }
 

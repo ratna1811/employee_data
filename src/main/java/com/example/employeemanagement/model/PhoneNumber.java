@@ -1,5 +1,7 @@
 package com.example.employeemanagement.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -15,6 +17,7 @@ public class PhoneNumber {
 
     @ManyToOne
     @JoinColumn(name = "employee_id")
+    @JsonIgnore // Ignore this field during serialization
     private Employee employee;
     
     private String phoneNumber;

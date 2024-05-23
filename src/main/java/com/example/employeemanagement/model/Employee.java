@@ -16,6 +16,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -35,8 +36,8 @@ public class Employee {
     @NotBlank(message = "Email is mandatory")
     private String email;
     
-    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
-    private List<PhoneNumber> phoneNumbers;
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<PhoneNumber> phoneNumbers = new ArrayList<>();
     
     //@ElementCollection
    // @NotEmpty(message = "Phone number is mandatory")
@@ -106,6 +107,16 @@ public class Employee {
 	public void setSalary(Double salary) {
 		this.salary = salary;
 	}
+	
+	public void addPhoneNumber(PhoneNumber phoneNumber) {
+        phoneNumbers.add(phoneNumber);
+        phoneNumber.setEmployee(this);
+    }
+
+    public void removePhoneNumber(PhoneNumber phoneNumber) {
+        phoneNumbers.remove(phoneNumber);
+        phoneNumber.setEmployee(null);
+    }
 
     
     
